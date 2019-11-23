@@ -55,7 +55,7 @@ int main()
 		}
 	}
 
-	// test coodinates
+	// test coodinatessss
 	int offset;
 	offset = 0 + 0 * WINDOW_WIDTH;
 	screen[offset].Char.UnicodeChar = 'A';
