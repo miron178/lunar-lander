@@ -41,7 +41,7 @@ int main()
 	if (SetConsoleWindowInfo(hConsoleOut, TRUE, &windowRect) == FALSE)
 		return Error("failed to set window size");
 
-	// Clear screen
+	// Clear screennn 
 	CHAR_INFO screen[WINDOW_HEIGHT * WINDOW_WIDTH];
 	for (int y = 0; y < WINDOW_HEIGHT; y++)
 	{
