@@ -18,11 +18,11 @@ struct Player
 	//constant
 	static const int WIDTH = 2;
 	static const int HEIGHT = 3;
-	const int PLAYER[WIDTH * HEIGHT] =
+	const char PLAYER[WIDTH * HEIGHT + 1] =
 	{
-		'_','_',
-		'{','}',
-		'/','\\'
+		R"(__)"
+		R"({})"
+		R"(/\)"
 	};
 
 	const int COLOUR[WIDTH * HEIGHT] =

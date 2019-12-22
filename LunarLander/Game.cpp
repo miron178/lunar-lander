@@ -145,9 +145,6 @@ void Game::Update(float deltaTime)
 			}
 		}
 
-		//get char struct
-		CHAR_INFO thisChar = consoleBuffer[player.xPos + SCREEN_WIDTH * player.yPos];
-
 		//clearscreen
 		ClearScreen(consoleBuffer);
 
@@ -155,15 +152,13 @@ void Game::Update(float deltaTime)
 		WriteImageToBuffer(consoleBuffer, background.BACKGROUND, nullptr, SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0);
 
 		//draw player
-		WriteImageToBuffer(consoleBuffer, player.PLAYER, player.COLOUR, player.HEIGHT, player.WIDTH, player.xPos, player.yPos);
+		WriteImageToBuffer2(consoleBuffer, player.PLAYER, player.COLOUR, player.HEIGHT, player.WIDTH, player.xPos, player.yPos);
 
 		//draw UI
 		WriteTextToBuffer(consoleBuffer, "SCORE", 1, 0);
 		WriteTextToBuffer(consoleBuffer, "TIME", 1, 1);
 		WriteTextToBuffer(consoleBuffer, "FULE " + std::to_string(player.fuel), 1, 2);
 
-		//Draw
-		consoleBuffer[player.xPos + SCREEN_WIDTH * player.yPos] = thisChar;
 		break;
 	}
 	case SCOREBOARD:
