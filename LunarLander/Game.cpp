@@ -123,6 +123,7 @@ void Game::Update(float deltaTime)
 			{
 				player.yPos++;
 			}
+			player.isAccelerating = false;
 
 			//clamp input
 			player.xPos = Clamp(player.xPos, 0, SCREEN_WIDTH - player.WIDTH);
