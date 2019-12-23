@@ -22,8 +22,7 @@ private:
 		MENU,
 		PLAY,
 		SCOREBOARD,
-		OPTIONS,
-		GAME_OVER
+		OPTIONS
 	};
 
 	//CONSOLE PARAMETERS
@@ -50,5 +49,6 @@ private:
 	Splash splash;
 	Background background;
 	Player player;
+	Explosion explosion;
 };
 #endif //GAME_H

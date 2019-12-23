@@ -78,6 +78,17 @@ void Game::Update(float deltaTime)
 	}
 	case PLAY:
 	{
+		if (GetAsyncKeyState(KEY_ESC))
+		{
+			m_exit = true;
+		}
+
+		if (GetAsyncKeyState(KEY_ENTER) && player.hasCrashed)
+		{
+			player.Reset();
+			currentGameState = MENU;
+		}
+
 		if (!player.hasLanded && !player.hasCrashed)
 		{
 			if (GetAsyncKeyState(KEY_ESC))
@@ -137,12 +148,10 @@ void Game::Update(float deltaTime)
 			if (bottomLeftChar == '_' && BottomRightChar == '_')
 			{
 				player.hasLanded = true;
-				currentGameState = GAME_OVER;
 			}
 			else if (bottomLeftChar != ' ' || BottomRightChar != ' ')
 			{
 				player.hasCrashed = true;
-				currentGameState = GAME_OVER;
 			}
 		}
 
@@ -152,8 +161,36 @@ void Game::Update(float deltaTime)
 		//draw background
 		WriteImageToBuffer(consoleBuffer, background.BACKGROUND, nullptr, SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0);
 
-		//draw player
-		WriteImageToBuffer2(consoleBuffer, player.PLAYER, player.COLOUR, player.HEIGHT, player.WIDTH, player.xPos, player.yPos);
+		//crash draw
+		if (player.hasCrashed)
+		{
+			static float explosionTimer = 0.0f;
+			explosionTimer += deltaTime;
+
+			if (explosionTimer >= 0.5f)
+			{
+				WriteImageToBuffer2(consoleBuffer, explosion.EXPLOSION, nullptr,
+					explosion.HEIGHT, explosion.WIDTH, player.xPos, player.yPos);
+				explosionTimer = 0.0f;
+			}
+			else
+			{
+				WriteImageToBuffer2(consoleBuffer, explosion.EXPLOSION2, nullptr,
+					explosion.HEIGHT, explosion.WIDTH, player.xPos, player.yPos);
+			}
+			WriteTextToBuffer(consoleBuffer, "CRASHED!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+			WriteTextToBuffer(consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
+		}
+		else if (player.hasLanded)
+		{
+			WriteTextToBuffer(consoleBuffer, "Craft has landed", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+			WriteTextToBuffer(consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
+		}
+		else
+		{
+			//draw player
+			WriteImageToBuffer2(consoleBuffer, player.PLAYER, player.COLOUR, player.HEIGHT, player.WIDTH, player.xPos, player.yPos);
+		}
 
 		//draw UI
 		WriteTextToBuffer(consoleBuffer, "SCORE", 1, 0);
@@ -168,32 +205,6 @@ void Game::Update(float deltaTime)
 	}
 	case OPTIONS:
 	{
-		break;
-	}
-	case GAME_OVER:
-	{
-		if (GetAsyncKeyState(KEY_ESC))
-		{
-			m_exit = true;
-		}
-
-		if (GetAsyncKeyState(KEY_ENTER))
-		{
-			player.Reset();
-			currentGameState = MENU;
-		}
-
-		//Draw game over text
-		if (player.hasLanded)
-		{
-			WriteTextToBuffer(consoleBuffer, "Craft has landed", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-			WriteTextToBuffer(consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
-		}
-		else if (player.hasCrashed)
-		{
-			WriteTextToBuffer(consoleBuffer, "CRASHED!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-			WriteTextToBuffer(consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
-		}
 		break;
 	}
 	}

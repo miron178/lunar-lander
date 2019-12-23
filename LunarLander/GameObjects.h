@@ -46,13 +46,13 @@ struct Explosion
 {
 	static const int WIDTH = 3;
 	static const int HEIGHT = 3;
-	const int explosion[WIDTH * HEIGHT]
+	const int EXPLOSION[WIDTH * HEIGHT]
 	{
 		'\\', '|', '/',
 		'-', ' ', '-',
 		'/', '|', '\\',
 	};
-	const int explosion2[WIDTH * HEIGHT]
+	const int EXPLOSION2[WIDTH * HEIGHT]
 	{
 		' ', ' ', ' ',
 		' ', ' ', ' ',
