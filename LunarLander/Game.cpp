@@ -83,7 +83,7 @@ void Game::Update(float deltaTime)
 			m_exit = true;
 		}
 
-		if (GetAsyncKeyState(KEY_ENTER) && player.hasCrashed)
+		if (GetAsyncKeyState(KEY_ENTER) && (player.hasCrashed || player.hasLanded))
 		{
 			player.Reset();
 			currentGameState = MENU;
@@ -159,7 +159,7 @@ void Game::Update(float deltaTime)
 		ClearScreen(consoleBuffer);
 
 		//draw background
-		WriteImageToBuffer(consoleBuffer, background.BACKGROUND, nullptr, SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0);
+		WriteImageToBuffer2(consoleBuffer, background.BACKGROUND, nullptr, SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0);
 
 		//crash draw
 		if (player.hasCrashed)
@@ -167,7 +167,7 @@ void Game::Update(float deltaTime)
 			static float explosionTimer = 0.0f;
 			explosionTimer += deltaTime;
 
-			if (explosionTimer >= 0.5f)
+			if (explosionTimer >= .75f)
 			{
 				WriteImageToBuffer2(consoleBuffer, explosion.EXPLOSION, nullptr,
 					explosion.HEIGHT, explosion.WIDTH, player.xPos, player.yPos);

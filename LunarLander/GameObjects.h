@@ -14,6 +14,7 @@ struct Player
 		landerAcceleration = 0.0f;
 		hasLanded = false;
 		hasCrashed = false;
+		fuel = 100;
 	}
 	//constant
 	static const int WIDTH = 2;
@@ -46,17 +47,17 @@ struct Explosion
 {
 	static const int WIDTH = 3;
 	static const int HEIGHT = 3;
-	const int EXPLOSION[WIDTH * HEIGHT]
+	const char EXPLOSION[WIDTH * HEIGHT + 1]
 	{
-		'\\', '|', '/',
-		'-', ' ', '-',
-		'/', '|', '\\',
+		R"(\|/)"
+		R"(- -)"
+		R"(/|\)"
 	};
-	const int EXPLOSION2[WIDTH * HEIGHT]
+	const char EXPLOSION2[WIDTH * HEIGHT + 1]
 	{
-		' ', ' ', ' ',
-		' ', ' ', ' ',
-		' ', ' ', ' ',
+		R"(   )"
+		R"( * )"
+		R"(   )"
 	};
 };
 
@@ -71,37 +72,37 @@ struct Background
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-		R"(                                                                                                    )"
+		R"(                                                                              ^                     )"
+		R"(                                                                             / \   __               )"
+		R"(                                                                            /    \/X4\              )"
+		R"(                                                                           /          |             )"
+		R"(                                                                          /            \            )"
+		R"(                                                                         /              |           )"
+		R"(                                                                        /                |          )"
+		R"(                                                                       /                 |          )"
+		R"(                                                                  ____/                   \         )"
+		R"(                                                                 / X1                      |        )"
+		R"(                                                                /                          |        )"
+		R"(                                                               /                           |        )"
+		R"(                                          ___                 |                             \       )"
+		R"(                                         | X2\               /                               |      )"
+		R"(                                        /     \__           |                                |     /)"
+		R"(                                       |         \         /                                 |____/ )"
+		R"(                              /\      /           \       |                                    X1   )"
+		R"(                             /  \    |             \  ___/                                          )"
+		R"(                    ____    /    \__/               \/ X2                                           )"
+		R"(                   / X1 \ /       X4                /                                               )"
+		R"(                  /      \                                                                          )"
+		R"(                 /                                                                                  )"
+		R"(                /                                                                                   )"
+		R"(       ___     /                                                                                    )"
+		R"(      /X2 \   /                                                                                     )"
+		R"(     /     \ /                                                                                      )"
+		R"(    |       V                                                                                       )"
+		R"(    |                                                                                               )"
+		R"(   /                                                                                                )"
+		R"(__/                                                                                                 )"
+		R"(X4                                                                                                  )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
