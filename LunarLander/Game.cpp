@@ -28,8 +28,6 @@ bool Game::Initialise()
 	{
 		return false;
 	}
-
-	m_startTime = std::chrono::high_resolution_clock::now();
 	return true;
 }
 
@@ -93,6 +91,8 @@ void Game::UpdateMenu(float deltaTime)
 	//switch game state
 	if (GetAsyncKeyState(KEY_1))
 	{
+		m_player.Reset(); //resets player pos, fuel, etc.
+		m_startTime = std::chrono::high_resolution_clock::now();
 		m_currentGameState = GAME_STATE_PLAY;
 	}
 	if (GetAsyncKeyState(KEY_2))
@@ -121,7 +121,6 @@ void Game::UpdatePlay(float deltaTime)
 
 	if (GetAsyncKeyState(KEY_ENTER) && (m_player.hasCrashed || m_player.hasLanded))
 	{
-		m_player.Reset(); //resets player pos, fuel, etc.
 		m_currentGameState = GAME_STATE_MENU; //sets state to menu
 	}
 	if (!m_player.hasLanded && !m_player.hasCrashed)
