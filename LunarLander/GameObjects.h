@@ -14,13 +14,18 @@
 //holds all data needed to make the player
 struct Player
 {
-	//resets the position, fuel, and state (crashed  / landed)
-	void Reset()
+	void ResetMovement()
 	{
 		acceleration.x = 0;
 		acceleration.y = 0;
 		velocity.x = 0;
 		velocity.y = 0;
+	}
+
+	//resets the position, fuel, and state (crashed  / landed)
+	void Reset()
+	{
+		ResetMovement();
 		position.x = 0;
 		position.y = 0;
 		hasLanded = false;

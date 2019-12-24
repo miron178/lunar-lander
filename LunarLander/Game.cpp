@@ -142,15 +142,16 @@ void Game::UpdatePlay(float deltaTime)
 		WriteTextToBuffer(m_consoleBuffer, "CRASHED!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		WriteTextToBuffer(m_consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
 	}
-	else if (m_player.hasLanded)
-	{
-		WriteTextToBuffer(m_consoleBuffer, "Craft has landed", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-		WriteTextToBuffer(m_consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
-	}
 	else
 	{
 		//draw player
 		WriteImageToBuffer(m_consoleBuffer, m_player.PLAYER, m_player.COLOUR, m_player.HEIGHT, m_player.WIDTH, (int)m_player.position.x, (int)m_player.position.y);
+
+		if (m_player.hasLanded)
+		{
+			WriteTextToBuffer(m_consoleBuffer, "Craft has landed", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+			WriteTextToBuffer(m_consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
+		}
 	}
 	DrawUI();
 }
@@ -211,6 +212,7 @@ void Game::UpdatePlayer(float deltaTime)
 		(bottomLeftChar <= '9'))
 	{
 		int multiplier = bottomLeftChar - '0';
+		m_player.ResetMovement();
 		m_player.hasLanded = true;
 		m_player.score += (50 + m_player.fuel) * multiplier;
 	}
