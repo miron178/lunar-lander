@@ -36,24 +36,58 @@ struct Player
 		score = 0;
 	}
 
-	bool LandingSpeed()
+	bool CanLand()
 	{
-		return fabs(velocity.x) <= MAX_LANDING_VELOCITY && fabs(velocity.y) <= MAX_LANDING_VELOCITY;
+		return orientation == ORIENTATION_DOWN &&
+			fabs(velocity.x) <= MAX_LANDING_VELOCITY && 
+			fabs(velocity.y) <= MAX_LANDING_VELOCITY;
 	}
 
-	//constant
-	static const int WIDTH = 2;
-	static const int HEIGHT = 3;
-	const char* PLAYER =
-		R"(__)"
-		R"({})"
-		R"(/\)";
-
-	const int COLOUR[WIDTH * HEIGHT]
+	enum ORIENTATION
 	{
-		0xf,0xf,
-		0xf,0xf,
-		0xe,0xe,
+		ORIENTATION_DOWN,
+		ORIENTATION_RIGHT,
+		ORIENTATION_LEFT
+	};
+	//constant
+	static const int WIDTH = 3;
+	static const int HEIGHT = 3;
+	static const int FRAMES = 3;
+	const char* PLAYER[FRAMES] =
+	{
+		//down
+		R"(__ )"
+		R"(|| )"
+		R"(/\ )",
+
+		//right
+		R"( _ )"
+		R"(>_|)"
+		R"(   )",
+
+		//left
+		R"( _ )"
+		R"(|_<)"
+		R"(   )"
+	};
+
+	const int COLOUR[FRAMES][WIDTH * HEIGHT]
+	{
+		{   //down
+			0xf,0xf,0xf,
+			0xf,0xf,0xf,
+			0xe,0xe,0xe
+		},
+		{	//right
+			0xe,0xf,0xf,
+			0xe,0xf,0xf,
+			0xe,0xf,0xf
+		},
+		{	//left
+			0xf,0xf,0xe,
+			0xf,0xf,0xe,
+			0xf,0xf,0xe
+		},
 	};
 
 	//variables
@@ -64,6 +98,7 @@ struct Player
 	Vector position{ 0.0f, 0.0f };
 	Vector velocity{ 0.0f, 0.0f };
 	Vector acceleration{ 0.0f, 0.0f };
+	ORIENTATION orientation = ORIENTATION_DOWN;
 };
 
 // holds the models used for explosion
@@ -97,7 +132,7 @@ struct Background
 		R"(                   .     '                                         *                                )"
 		R"(    *                                   *                                     ^                     )"
 		R"(                                                                             / \   __       *       )"
-		R"(          '               *                          *                      /    \/X4\         .    )"
+		R"(          '               *                          *                      /    \/X8\         .    )"
 		R"(                                             *                             /          |             )"
 		R"(                  *                                        *              /            \       *    )"
 		R"(    .                                                                    /              |           )"
@@ -111,7 +146,7 @@ struct Background
 		R"(                                   *     | X2\  *            /                               |      )"
 		R"(   '               '                    /     \__      .    |                                |  .  /)"
 		R"(                                       |         \         /                                 |____/ )"
-		R"(                       *      /\      /           \  ,    |                                    X1   )"
+		R"(                       *      /\      /           \  ,    |                                    X2   )"
 		R"(             *               /  \    |             \  ___/                                          )"
 		R"(  .                 ____    /    \__/               \/ X2                                           )"
 		R"(     .             / X1 \ /       X4                /                                               )"
@@ -125,7 +160,7 @@ struct Background
 		R"(    |                                                                                               )"
 		R"(   /                                                                                                )"
 		R"(__/                                                                                                 )"
-		R"(X4                                                                                                  )"
+		R"(X1                                                                                                  )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )";
@@ -138,7 +173,7 @@ struct Background
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
 		R"(                                                                              ^                     )"
-		R"(                                                                             / \   44               )"
+		R"(                                                                             / \   88               )"
 		R"(                                                                            /    \/  \              )"
 		R"(                                                                           /          |             )"
 		R"(                                                                          /            \            )"
@@ -152,7 +187,7 @@ struct Background
 		R"(                                          222                 |                             \       )"
 		R"(                                         |   \               /                               |      )"
 		R"(                                        /     \__           |                                |     /)"
-		R"(                                       |         \         /                                 |1111/ )"
+		R"(                                       |         \         /                                 |2222/ )"
 		R"(                              /\      /           \       |                                         )"
 		R"(                             /  \    |             \  222/                                          )"
 		R"(                    1111    /    \44/               \/                                              )"
@@ -166,7 +201,7 @@ struct Background
 		R"(    |       V                                                                                       )"
 		R"(    |                                                                                               )"
 		R"(   /                                                                                                )"
-		R"(44/                                                                                                 )"
+		R"(11/                                                                                                 )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"

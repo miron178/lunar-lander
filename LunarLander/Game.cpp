@@ -150,7 +150,11 @@ void Game::UpdatePlay(float deltaTime)
 	else
 	{
 		//draw player
-		WriteImageToBuffer(m_consoleBuffer, m_player.PLAYER, m_player.COLOUR, m_player.HEIGHT, m_player.WIDTH, (int)m_player.position.x, (int)m_player.position.y);
+		WriteImageToBuffer(m_consoleBuffer, 
+			m_player.PLAYER[m_player.orientation], 
+			m_player.COLOUR[m_player.orientation], 
+			m_player.HEIGHT, m_player.WIDTH, 
+			(int)m_player.position.x, (int)m_player.position.y);
 
 		if (m_player.hasLanded)
 		{
@@ -163,34 +167,50 @@ void Game::UpdatePlay(float deltaTime)
 
 void Game::HandlePlayerControls(float deltaTime)
 {
-	// vertical control
+	// acceleration control
 	if (GetAsyncKeyState(KEY_W) && m_player.fuel > 0.0f)
 	{
-		m_player.acceleration.y = -ACCELERATION_RATE;
-		m_player.fuel -= FUEL_CONSUMPTION * deltaTime;
-	}
-	else
-	{
-		m_player.acceleration.y = DECELERATION_RATE;
-	}
-	//if (GetAsyncKeyState(KEY_S))
-	//{
-	//}
-
-	// horizontal
-	if (GetAsyncKeyState(KEY_A))
-	{
-		m_player.acceleration.x = -ACCELERATION_RATE;
-		m_player.fuel -= FUEL_CONSUMPTION * deltaTime;
-	}
-	else if (GetAsyncKeyState(KEY_D))
-	{
-		m_player.acceleration.x = ACCELERATION_RATE;
+		switch (m_player.orientation)
+		{
+		case Player::ORIENTATION_DOWN:
+		{
+			m_player.acceleration.x = 0.0f;
+			m_player.acceleration.y = -ACCELERATION_RATE;
+			break;
+		}
+		case Player::ORIENTATION_RIGHT:
+		{
+			m_player.acceleration.x = ACCELERATION_RATE;
+			m_player.acceleration.y = DECELERATION_RATE;
+			break;
+		}
+		case Player::ORIENTATION_LEFT:
+		{
+			m_player.acceleration.x = -ACCELERATION_RATE;
+			m_player.acceleration.y = DECELERATION_RATE;
+			break;
+		}
+		}
 		m_player.fuel -= FUEL_CONSUMPTION * deltaTime;
 	}
 	else
 	{
 		m_player.acceleration.x = 0.0f;
+		m_player.acceleration.y = DECELERATION_RATE;
+	}
+
+	// change orientation
+	if (GetAsyncKeyState(KEY_A))
+	{
+		m_player.orientation = Player::ORIENTATION_LEFT;
+	}
+	else if (GetAsyncKeyState(KEY_S))
+	{
+		m_player.orientation = Player::ORIENTATION_DOWN;
+	}
+	else if (GetAsyncKeyState(KEY_D))
+	{
+		m_player.orientation = Player::ORIENTATION_RIGHT;
 	}
 }
 
@@ -210,14 +230,14 @@ void Game::UpdatePlayer(float deltaTime)
 	char bottomLeftChar = m_background.HIT_MAP[(int)m_player.position.x + 
 		SCREEN_WIDTH * ((int)m_player.position.y + (m_player.HEIGHT - 1))];
 	char bottomRightChar = m_background.HIT_MAP
-		[((int)m_player.position.x + (m_player.WIDTH - 1) + 
+		[((int)m_player.position.x + (m_player.WIDTH - 2) + //the 3rd column is empty 
 			SCREEN_WIDTH * ((int)m_player.position.y + (m_player.HEIGHT - 1)))];
 
 	//land or crash
 	if ((bottomLeftChar == bottomRightChar) && 
 		(bottomLeftChar >= '1') && 
 		(bottomLeftChar <= '9') &&
-		m_player.LandingSpeed())
+		m_player.CanLand())
 	{
 		int multiplier = bottomLeftChar - '0';
 		m_player.ResetMovement();
@@ -259,7 +279,7 @@ void Game::DrawUI()
 {
 	std::chrono::duration<float> diff = std::chrono::high_resolution_clock::now() - m_startTime;
 	int duration = (int)diff.count();
-	std::string warn = m_player.LandingSpeed() ? "" : " TOO FAST!";
+	std::string warn = m_player.CanLand() ? "" : " TOO FAST!";
 	WriteTextToBuffer(m_consoleBuffer, "SCORE  " + std::to_string(m_player.score), 1, 0);
 	WriteTextToBuffer(m_consoleBuffer, "TIME   " + std::to_string(duration), 1, 1);
 	WriteTextToBuffer(m_consoleBuffer, "FUEL   " + std::to_string(m_player.fuel), 1, 2);
