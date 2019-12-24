@@ -33,22 +33,22 @@ void Game::Update(float deltaTime)
 {
 	switch (m_currentGameState)
 	{
-	case SPLASH:
+	case GAME_STATE_SPLASH:
 	{
 		UpdateSplash(deltaTime);
 		break;
 	}
-	case MENU:
+	case GAME_STATE_MENU:
 	{
 		UpdateMenu(deltaTime);
 		break;
 	}
-	case PLAY:
+	case GAME_STATE_PLAY:
 	{
 		UpdatePlay(deltaTime);
 		break;
 	}
-	case SCOREBOARD:
+	case GAME_STATE_SCOREBOARD:
 	{
 		UpdateScoreboard(deltaTime);
 		break;
@@ -71,7 +71,7 @@ void Game::UpdateSplash(float deltaTime)
 	else
 	{
 		m_splash.duration = 0.0f;
-		m_currentGameState = MENU;
+		m_currentGameState = GAME_STATE_MENU;
 	}
 }
 void Game::UpdateMenu(float deltaTime)
@@ -85,11 +85,11 @@ void Game::UpdateMenu(float deltaTime)
 	//switch game state
 	if (GetAsyncKeyState(KEY_1))
 	{
-		m_currentGameState = PLAY;
+		m_currentGameState = GAME_STATE_PLAY;
 	}
 	if (GetAsyncKeyState(KEY_2))
 	{
-		m_currentGameState = SCOREBOARD;
+		m_currentGameState = GAME_STATE_SCOREBOARD;
 	}
 
 	//stop game
@@ -112,7 +112,7 @@ void Game::UpdatePlay(float deltaTime)
 	if (GetAsyncKeyState(KEY_ENTER) && (m_player.hasCrashed || m_player.hasLanded))
 	{
 		m_player.Reset();
-		m_currentGameState = MENU;
+		m_currentGameState = GAME_STATE_MENU;
 	}
 	if (!m_player.hasLanded && !m_player.hasCrashed)
 	{
