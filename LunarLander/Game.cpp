@@ -130,7 +130,7 @@ void Game::UpdatePlay(float deltaTime)
 	}
 	if (!m_player.hasLanded && !m_player.hasCrashed)
 	{
-		HandlePlayerControls(); //player controls
+		HandlePlayerControls(deltaTime); //player controls
 		UpdatePlayer(deltaTime); //update player
 	}
 
@@ -161,13 +161,13 @@ void Game::UpdatePlay(float deltaTime)
 	DrawUI();
 }
 
-void Game::HandlePlayerControls()
+void Game::HandlePlayerControls(float deltaTime)
 {
 	// vertical control
 	if (GetAsyncKeyState(KEY_W) && m_player.fuel > 0.0f)
 	{
 		m_player.acceleration.y = -ACCELERATION_RATE;
-		m_player.fuel -= FUEL_CONSUMPTION;
+		m_player.fuel -= FUEL_CONSUMPTION * deltaTime;
 	}
 	else
 	{
@@ -181,12 +181,12 @@ void Game::HandlePlayerControls()
 	if (GetAsyncKeyState(KEY_A))
 	{
 		m_player.acceleration.x = -ACCELERATION_RATE;
-		m_player.fuel -= FUEL_CONSUMPTION;
+		m_player.fuel -= FUEL_CONSUMPTION * deltaTime;
 	}
 	else if (GetAsyncKeyState(KEY_D))
 	{
 		m_player.acceleration.x = ACCELERATION_RATE;
-		m_player.fuel -= FUEL_CONSUMPTION;
+		m_player.fuel -= FUEL_CONSUMPTION * deltaTime;
 	}
 	else
 	{

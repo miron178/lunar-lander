@@ -29,7 +29,7 @@ private:
 	void UpdateMenu(float deltaTime);
 	void UpdatePlay(float deltaTime);
 	void UpdateScoreboard(float deltaTime);
-	void HandlePlayerControls();
+	void HandlePlayerControls(float deltaTime);
 	void UpdatePlayer(float deltaTime);
 	void DrawExplosion(float deltaTime);
 	void DrawUI();

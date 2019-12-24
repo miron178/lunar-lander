@@ -11,6 +11,7 @@
 #include <windows.h>
 #include <chrono>
 #include <iostream>
+#include <thread>
 
 //Typedefs
 typedef std::chrono::steady_clock::time_point Time;
@@ -27,25 +28,32 @@ int main()
 		std::cerr << "Failed to initialise game. " << std::endl;
 		return 1;
 	}
-	Time previousFrameTime = HiResClock::now();
+	Time previousFrameStart = HiResClock::now();
 	Time currentFrameTime = HiResClock::now();
-	float deltaTime = 0.0f;
 
 	//main game loop
 	while (!gameInstance.Exit())
 	{
 		//calculate time since last frame
-		Time currentFrameTime = HiResClock::now();
-		TimeDiff diff = currentFrameTime - previousFrameTime;
-		deltaTime = diff.count();
+		Time currentFrameStart = HiResClock::now();
+		TimeDiff diff = currentFrameStart - previousFrameStart;
+		previousFrameStart = currentFrameStart;
+		float deltaTime = diff.count();
 
-		if (deltaTime >= (1.0f / FRAME_RATE))
-		{
-			gameInstance.Update(deltaTime);
-
-			previousFrameTime = currentFrameTime;
-		}
+		//update and draw game
+		gameInstance.Update(deltaTime);
 		gameInstance.Draw();
+
+		//go to sleep if we finished early
+		Time currentFrameEnd = HiResClock::now();
+		TimeDiff currentFrameDuration = currentFrameEnd - currentFrameStart;
+		float frameDuration = 1.0f / FRAME_RATE;
+		float remainingTime = frameDuration - currentFrameDuration.count();
+		if (remainingTime > 0)
+		{
+			std::chrono::milliseconds timespan((int)(remainingTime * 1000));
+			std::this_thread::sleep_for(timespan);
+		}
 	}
 	return 0;
 }

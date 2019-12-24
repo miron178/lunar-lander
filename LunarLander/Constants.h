@@ -15,7 +15,7 @@
 //DEFINS
 #define SCREEN_WIDTH 100 //lowered to fix border
 #define SCREEN_HEIGHT 40
-#define FRAME_RATE 10
+#define FRAME_RATE 60
 
 //consts
 const int KEY_ESC = VK_ESCAPE;
