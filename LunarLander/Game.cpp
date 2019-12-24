@@ -239,14 +239,14 @@ void Game::DrawExplosion(float deltaTime)
 {
 	static const float ANIMATION_DELAY = 0.5f;
 
-	int frame = 0;
+	static int frame = 0;
 	static float explosionTimer = 0.0f;
 	explosionTimer += deltaTime;
 
 	// move to next frame
 	if (explosionTimer >= ANIMATION_DELAY)
 	{
-		explosionTimer -= ANIMATION_DELAY;
+		explosionTimer = 0;
 		frame = (frame + 1) % m_explosion.FRAMES;
 	}
 
