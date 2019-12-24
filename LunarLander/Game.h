@@ -32,6 +32,7 @@ private:
 	void DrawExplosion(float deltaTime);
 	void DrawUI();
 
+private:
 	bool m_exit = false;
 	//game enums
 	enum GAME_STATE
@@ -44,28 +45,28 @@ private:
 
 	//CONSOLE PARAMETERS
 	//window size coordinates
-	SMALL_RECT windowSize = { 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
+	SMALL_RECT m_windowSize = { 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
 
 	//SCREEN BUFFER DIMENTIONS
-	COORD bufferSize = { SCREEN_WIDTH, SCREEN_HEIGHT };
+	COORD m_bufferSize = { SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//SETTING UP VARIABLES
-	COORD characterBufferSize = { SCREEN_WIDTH, SCREEN_HEIGHT };
-	COORD characterPoition = { 0, 0 };
-	SMALL_RECT ConsoleWriteArea = { 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
+	COORD m_characterBufferSize = { SCREEN_WIDTH, SCREEN_HEIGHT };
+	COORD m_characterPoition = { 0, 0 };
+	SMALL_RECT m_consoleWriteArea = { 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
 
 	//CHAR FOR FRAM
-	CHAR_INFO consoleBuffer[SCREEN_WIDTH * SCREEN_HEIGHT];
+	CHAR_INFO m_consoleBuffer[SCREEN_WIDTH * SCREEN_HEIGHT];
 
 	//Initialize handles
-	HANDLE wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
-	HANDLE rHnd = GetStdHandle(STD_INPUT_HANDLE);
+	HANDLE m_wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE m_rHnd = GetStdHandle(STD_INPUT_HANDLE);
 
 	//game variables
-	GAME_STATE currentGameState = GAME_STATE::SPLASH;
-	Splash splash;
-	Background background;
-	Player player;
-	Explosion explosion;
+	GAME_STATE m_currentGameState = GAME_STATE::SPLASH;
+	Splash m_splash;
+	Background m_background;
+	Player m_player;
+	Explosion m_explosion;
 };
 #endif //!__GAME_H__

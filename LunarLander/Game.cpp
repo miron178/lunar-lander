@@ -12,17 +12,17 @@
 
 Game::Game()
 {
-	memset(&consoleBuffer, 0, sizeof(consoleBuffer));
+	memset(&m_consoleBuffer, 0, sizeof(m_consoleBuffer));
 }
 
 bool Game::Initialise()
 {
 	SetConsoleTitle(L"Title of my Console Window");
-	if (!SetConsoleWindowInfo(wHnd, TRUE, &windowSize))
+	if (!SetConsoleWindowInfo(m_wHnd, TRUE, &m_windowSize))
 	{
 		return false;
 	}
-	if (!SetConsoleScreenBufferSize(wHnd, bufferSize))
+	if (!SetConsoleScreenBufferSize(m_wHnd, m_bufferSize))
 	{
 		return false;
 	}
@@ -31,7 +31,7 @@ bool Game::Initialise()
 
 void Game::Update(float deltaTime)
 {
-	switch (currentGameState)
+	switch (m_currentGameState)
 	{
 	case SPLASH:
 	{
@@ -58,38 +58,38 @@ void Game::Update(float deltaTime)
 
 void Game::UpdateSplash(float deltaTime)
 {
-	splash.duration += deltaTime;
-	if (splash.duration < 3.0f)
+	m_splash.duration += deltaTime;
+	if (m_splash.duration < 3.0f)
 	{
 		//draw splash
 		static const int SPEED = 10;
-		WriteImageToBuffer(consoleBuffer, splash.SCREEN, nullptr,
-			splash.HEIGHT, splash.WIDTH,
-			(SCREEN_WIDTH - splash.WIDTH) / 2 - (int)(splash.duration * SPEED),
-			(SCREEN_HEIGHT - splash.HEIGHT) / 2);
+		WriteImageToBuffer(m_consoleBuffer, m_splash.SCREEN, nullptr,
+			m_splash.HEIGHT, m_splash.WIDTH,
+			(SCREEN_WIDTH - m_splash.WIDTH) / 2 - (int)(m_splash.duration * SPEED),
+			(SCREEN_HEIGHT - m_splash.HEIGHT) / 2);
 	}
 	else
 	{
-		splash.duration = 0.0f;
-		currentGameState = MENU;
+		m_splash.duration = 0.0f;
+		m_currentGameState = MENU;
 	}
 }
 void Game::UpdateMenu(float deltaTime)
 {
-	ClearScreen(consoleBuffer);
+	ClearScreen(m_consoleBuffer);
 
-	WriteTextToBuffer(consoleBuffer, "1. PLAY", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2));
-	WriteTextToBuffer(consoleBuffer, "2. SCOREBOARD", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 1);
-	WriteTextToBuffer(consoleBuffer, "3. EXIT", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 2);
+	WriteTextToBuffer(m_consoleBuffer, "1. PLAY", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2));
+	WriteTextToBuffer(m_consoleBuffer, "2. SCOREBOARD", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 1);
+	WriteTextToBuffer(m_consoleBuffer, "3. EXIT", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 2);
 
 	//switch game state
 	if (GetAsyncKeyState(KEY_1))
 	{
-		currentGameState = PLAY;
+		m_currentGameState = PLAY;
 	}
 	if (GetAsyncKeyState(KEY_2))
 	{
-		currentGameState = SCOREBOARD;
+		m_currentGameState = SCOREBOARD;
 	}
 
 	//stop game
@@ -109,39 +109,39 @@ void Game::UpdatePlay(float deltaTime)
 		m_exit = true;
 	}
 
-	if (GetAsyncKeyState(KEY_ENTER) && (player.hasCrashed || player.hasLanded))
+	if (GetAsyncKeyState(KEY_ENTER) && (m_player.hasCrashed || m_player.hasLanded))
 	{
-		player.Reset();
-		currentGameState = MENU;
+		m_player.Reset();
+		m_currentGameState = MENU;
 	}
-	if (!player.hasLanded && !player.hasCrashed)
+	if (!m_player.hasLanded && !m_player.hasCrashed)
 	{
 		HandlePlayerControls();
 		UpdatePlayer(deltaTime);
 	}
 
 	//clearscreen
-	ClearScreen(consoleBuffer);
+	ClearScreen(m_consoleBuffer);
 
 	//draw background
-	WriteImageToBuffer(consoleBuffer, background.BACKGROUND, nullptr, SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0);
+	WriteImageToBuffer(m_consoleBuffer, m_background.BACKGROUND, nullptr, SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0);
 
 	//crash draw
-	if (player.hasCrashed)
+	if (m_player.hasCrashed)
 	{
 		DrawExplosion(deltaTime);
-		WriteTextToBuffer(consoleBuffer, "CRASHED!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-		WriteTextToBuffer(consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
+		WriteTextToBuffer(m_consoleBuffer, "CRASHED!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+		WriteTextToBuffer(m_consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
 	}
-	else if (player.hasLanded)
+	else if (m_player.hasLanded)
 	{
-		WriteTextToBuffer(consoleBuffer, "Craft has landed", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-		WriteTextToBuffer(consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
+		WriteTextToBuffer(m_consoleBuffer, "Craft has landed", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+		WriteTextToBuffer(m_consoleBuffer, "Press enter to retun to menu", SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 1);
 	}
 	else
 	{
 		//draw player
-		WriteImageToBuffer(consoleBuffer, player.PLAYER, player.COLOUR, player.HEIGHT, player.WIDTH, (int)player.position.x, (int)player.position.y);
+		WriteImageToBuffer(m_consoleBuffer, m_player.PLAYER, m_player.COLOUR, m_player.HEIGHT, m_player.WIDTH, (int)m_player.position.x, (int)m_player.position.y);
 	}
 	DrawUI();
 }
@@ -149,14 +149,14 @@ void Game::UpdatePlay(float deltaTime)
 void Game::HandlePlayerControls()
 {
 	// vertical control
-	if (GetAsyncKeyState(KEY_W) && player.fuel > 0.0f)
+	if (GetAsyncKeyState(KEY_W) && m_player.fuel > 0.0f)
 	{
-		player.acceleration.y = -ACCELERATION_RATE;
-		player.fuel -= FUEL_CONSUMPTION;
+		m_player.acceleration.y = -ACCELERATION_RATE;
+		m_player.fuel -= FUEL_CONSUMPTION;
 	}
 	else
 	{
-		player.acceleration.y = DECELERATION_RATE;
+		m_player.acceleration.y = DECELERATION_RATE;
 	}
 	//if (GetAsyncKeyState(KEY_S))
 	//{
@@ -165,43 +165,43 @@ void Game::HandlePlayerControls()
 	// horizontal
 	if (GetAsyncKeyState(KEY_A))
 	{
-		player.acceleration.x = -ACCELERATION_RATE;
+		m_player.acceleration.x = -ACCELERATION_RATE;
 	}
 	else if (GetAsyncKeyState(KEY_D))
 	{
-		player.acceleration.x = ACCELERATION_RATE;
+		m_player.acceleration.x = ACCELERATION_RATE;
 	}
 	else
 	{
-		player.acceleration.x = 0.0f;
+		m_player.acceleration.x = 0.0f;
 	}
 }
 void Game::UpdatePlayer(float deltaTime)
 {
-	player.velocity.x += player.acceleration.x * deltaTime;
-	player.velocity.y += player.acceleration.y * deltaTime;
-	player.velocity.x = ClampF(player.velocity.x, -MAX_VELOCITY, MAX_VELOCITY);
-	player.velocity.y = ClampF(player.velocity.y, -MAX_VELOCITY, MAX_VELOCITY);
+	m_player.velocity.x += m_player.acceleration.x * deltaTime;
+	m_player.velocity.y += m_player.acceleration.y * deltaTime;
+	m_player.velocity.x = ClampF(m_player.velocity.x, -MAX_VELOCITY, MAX_VELOCITY);
+	m_player.velocity.y = ClampF(m_player.velocity.y, -MAX_VELOCITY, MAX_VELOCITY);
 
-	player.position.x += player.velocity.x * deltaTime;
-	player.position.y += player.velocity.y * deltaTime;
-	player.position.x = ClampF(player.position.x, 0, SCREEN_WIDTH - player.WIDTH);
-	player.position.y = ClampF(player.position.y, 0, SCREEN_HEIGHT - player.HEIGHT);
+	m_player.position.x += m_player.velocity.x * deltaTime;
+	m_player.position.y += m_player.velocity.y * deltaTime;
+	m_player.position.x = ClampF(m_player.position.x, 0, SCREEN_WIDTH - m_player.WIDTH);
+	m_player.position.y = ClampF(m_player.position.y, 0, SCREEN_HEIGHT - m_player.HEIGHT);
 
 	//chars on landing gear
-	char bottomLeftChar = background.BACKGROUND[(int)player.position.x + SCREEN_WIDTH *
-		((int)player.position.y + (player.HEIGHT - 1))];
-	char BottomRightChar = background.BACKGROUND
-		[((int)player.position.x + (player.WIDTH - 1) + SCREEN_WIDTH * ((int)player.position.y + (player.HEIGHT - 1)))];
+	char bottomLeftChar = m_background.BACKGROUND[(int)m_player.position.x + SCREEN_WIDTH *
+		((int)m_player.position.y + (m_player.HEIGHT - 1))];
+	char BottomRightChar = m_background.BACKGROUND
+		[((int)m_player.position.x + (m_player.WIDTH - 1) + SCREEN_WIDTH * ((int)m_player.position.y + (m_player.HEIGHT - 1)))];
 
 	//land or crash
 	if (bottomLeftChar == '_' && BottomRightChar == '_')
 	{
-		player.hasLanded = true;
+		m_player.hasLanded = true;
 	}
 	else if (bottomLeftChar != ' ' || BottomRightChar != ' ')
 	{
-		player.hasCrashed = true;
+		m_player.hasCrashed = true;
 	}
 }
 
@@ -217,21 +217,21 @@ void Game::DrawExplosion(float deltaTime)
 	if (explosionTimer >= ANIMATION_DELAY)
 	{
 		explosionTimer -= ANIMATION_DELAY;
-		frame = (frame + 1) % explosion.FRAMES;
+		frame = (frame + 1) % m_explosion.FRAMES;
 	}
 
-	WriteImageToBuffer(consoleBuffer, explosion.EXPLOSION[frame], nullptr,
-		explosion.HEIGHT, explosion.WIDTH, (int)player.position.x, (int)player.position.y);
+	WriteImageToBuffer(m_consoleBuffer, m_explosion.EXPLOSION[frame], nullptr,
+		m_explosion.HEIGHT, m_explosion.WIDTH, (int)m_player.position.x, (int)m_player.position.y);
 }
 
 void Game::DrawUI()
 {
-	WriteTextToBuffer(consoleBuffer, "SCORE", 1, 0);
-	WriteTextToBuffer(consoleBuffer, "TIME", 1, 1);
-	WriteTextToBuffer(consoleBuffer, "FULE " + std::to_string(player.fuel), 1, 2);
-	WriteTextToBuffer(consoleBuffer, "POSITION     " + std::to_string(player.position.x) + ", " + std::to_string(player.position.y), 20, 0);
-	WriteTextToBuffer(consoleBuffer, "VELOCITY     " + std::to_string(player.velocity.x) + ", " + std::to_string(player.velocity.y), 20, 1);
-	WriteTextToBuffer(consoleBuffer, "ACCELERATION " + std::to_string(player.acceleration.x) + ", " + std::to_string(player.acceleration.y), 20, 2);
+	WriteTextToBuffer(m_consoleBuffer, "SCORE", 1, 0);
+	WriteTextToBuffer(m_consoleBuffer, "TIME", 1, 1);
+	WriteTextToBuffer(m_consoleBuffer, "FULE " + std::to_string(m_player.fuel), 1, 2);
+	WriteTextToBuffer(m_consoleBuffer, "POSITION     " + std::to_string(m_player.position.x) + ", " + std::to_string(m_player.position.y), 20, 0);
+	WriteTextToBuffer(m_consoleBuffer, "VELOCITY     " + std::to_string(m_player.velocity.x) + ", " + std::to_string(m_player.velocity.y), 20, 1);
+	WriteTextToBuffer(m_consoleBuffer, "ACCELERATION " + std::to_string(m_player.acceleration.x) + ", " + std::to_string(m_player.acceleration.y), 20, 2);
 }
 
 void Game::UpdateScoreboard(float deltaTime)
@@ -241,5 +241,5 @@ void Game::UpdateScoreboard(float deltaTime)
 
 void Game::Draw()
 {
-	WriteConsoleOutputA(wHnd, consoleBuffer, characterBufferSize, characterPoition, &ConsoleWriteArea);
+	WriteConsoleOutputA(m_wHnd, m_consoleBuffer, m_characterBufferSize, m_characterPoition, &m_consoleWriteArea);
 }
