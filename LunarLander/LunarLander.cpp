@@ -13,11 +13,17 @@ typedef std::chrono::steady_clock::time_point Time;
 typedef std::chrono::high_resolution_clock HiResClock;
 typedef std::chrono::duration<float> TimeDiff;
 
+//outside of the main function because of the size
+static Game gameInstance;
+
 int main()
 {
-	Game gameInstance;
 	//initialise
-	gameInstance.Initialise();
+	if (!gameInstance.Initialise())
+	{
+		std::cerr << "Failed to initialise game. " << std::endl;
+		return 1;
+	}
 	Time previousFrameTime = HiResClock::now();
 	Time currentFrameTime = HiResClock::now();
 	float deltaTime = 0.0f;

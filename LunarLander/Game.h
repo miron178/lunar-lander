@@ -8,7 +8,7 @@ class Game
 public:
 	//functions
 	Game();
-	void Initialise();
+	bool Initialise();
 	void Update(float deltaTime);
 	void Draw();
 	bool Exit() const { return m_exit; }
@@ -22,7 +22,6 @@ private:
 		MENU,
 		PLAY,
 		SCOREBOARD,
-		OPTIONS
 	};
 
 	//CONSOLE PARAMETERS
@@ -30,7 +29,7 @@ private:
 	SMALL_RECT windowSize = { 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
 
 	//SCREEN BUFFER DIMENTIONS
-	COORD bufferSize = { SCREEN_HEIGHT, SCREEN_WIDTH };
+	COORD bufferSize = { SCREEN_WIDTH, SCREEN_HEIGHT };
 
 	//SETTING UP VARIABLES
 	COORD characterBufferSize = { SCREEN_WIDTH, SCREEN_HEIGHT };

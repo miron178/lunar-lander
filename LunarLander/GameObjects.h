@@ -46,7 +46,6 @@ struct Player
 	bool hasLanded = false;
 	bool hasCrashed = false;
 	float fuel = 100;
-
 	Vector position{ 0.0f, 0.0f };
 	Vector velocity{ 0.0f, 0.0f };
 	Vector acceleration{ 0.0f, 0.0f };

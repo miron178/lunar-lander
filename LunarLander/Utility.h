@@ -71,7 +71,7 @@ static void ClearScreen(CHAR_INFO* consoleBuffer)
 
 static void WriteTextToBuffer(CHAR_INFO* consoleBuffer, std::string stringToPrint, int textXPos, int textYPos)
 {
-	for (int x = 0; x < stringToPrint.length(); x++)
+	for (unsigned int x = 0; x < stringToPrint.length(); x++)
 	{
 		consoleBuffer[(textXPos + x) + SCREEN_WIDTH * textYPos].Char.AsciiChar = stringToPrint[x];
 		consoleBuffer[(textXPos + x) + SCREEN_WIDTH * textYPos].Attributes = 0xF;

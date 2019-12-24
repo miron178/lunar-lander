@@ -5,16 +5,21 @@
 
 Game::Game()
 {
-	//constructor
+	memset(&consoleBuffer, 0, sizeof(consoleBuffer));
 }
 
-void Game::Initialise()
+bool Game::Initialise()
 {
 	SetConsoleTitle(L"Title of my Console Window");
-
-	SetConsoleScreenBufferSize(wHnd, bufferSize);
-
-	bool result = SetConsoleWindowInfo(wHnd, TRUE, &windowSize); //dosen't work on small screen
+	if (!SetConsoleWindowInfo(wHnd, TRUE, &windowSize))
+	{
+		return false;
+	}
+	if (!SetConsoleScreenBufferSize(wHnd, bufferSize))
+	{
+		return false;
+	}
+	return true;
 }
 
 void Game::Update(float deltaTime)
@@ -45,9 +50,8 @@ void Game::Update(float deltaTime)
 		ClearScreen(consoleBuffer);
 
 		WriteTextToBuffer(consoleBuffer, "1. PLAY", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2));
-		WriteTextToBuffer(consoleBuffer, "2. OPTIONS", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 1);
-		WriteTextToBuffer(consoleBuffer, "3. SCOREBOARD", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 2);
-		WriteTextToBuffer(consoleBuffer, "4. EXIT", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 3);
+		WriteTextToBuffer(consoleBuffer, "2. SCOREBOARD", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 1);
+		WriteTextToBuffer(consoleBuffer, "3. EXIT", (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 2);
 
 		//switch game state
 		if (GetAsyncKeyState(KEY_1))
@@ -56,15 +60,11 @@ void Game::Update(float deltaTime)
 		}
 		if (GetAsyncKeyState(KEY_2))
 		{
-			currentGameState = OPTIONS;
-		}
-		if (GetAsyncKeyState(KEY_3))
-		{
 			currentGameState = SCOREBOARD;
 		}
 
 		//stop game
-		if (GetAsyncKeyState(KEY_4))
+		if (GetAsyncKeyState(KEY_3))
 		{
 			m_exit = true;
 		}
@@ -207,10 +207,6 @@ void Game::Update(float deltaTime)
 		break;
 	}
 	case SCOREBOARD:
-	{
-		break;
-	}
-	case OPTIONS:
 	{
 		break;
 	}
