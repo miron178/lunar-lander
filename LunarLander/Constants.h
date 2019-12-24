@@ -34,7 +34,7 @@ const int KEY_4 = '4';
 const float ACCELERATION_RATE = 0.5f;
 const float DECELERATION_RATE = 0.2f;
 const float FUEL_CONSUMPTION = 0.5f;
-
 const float MAX_VELOCITY = 4.5f;
+const float MAX_LANDING_VELOCITY = 0.5f;
 
 #endif // !__CONSTANTS_H__

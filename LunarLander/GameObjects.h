@@ -11,6 +11,8 @@
 #include "Constants.h"
 #include "Vector.h"
 
+#include <math.h>
+
 //holds all data needed to make the player
 struct Player
 {
@@ -32,6 +34,11 @@ struct Player
 		hasCrashed = false;
 		fuel = 100;
 		score = 0;
+	}
+
+	bool LandingSpeed()
+	{
+		return fabs(velocity.x) <= MAX_LANDING_VELOCITY && fabs(velocity.y) <= MAX_LANDING_VELOCITY;
 	}
 
 	//constant

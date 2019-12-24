@@ -216,7 +216,8 @@ void Game::UpdatePlayer(float deltaTime)
 	//land or crash
 	if ((bottomLeftChar == bottomRightChar) && 
 		(bottomLeftChar >= '1') && 
-		(bottomLeftChar <= '9'))
+		(bottomLeftChar <= '9') &&
+		m_player.LandingSpeed())
 	{
 		int multiplier = bottomLeftChar - '0';
 		m_player.ResetMovement();
@@ -258,11 +259,12 @@ void Game::DrawUI()
 {
 	std::chrono::duration<float> diff = std::chrono::high_resolution_clock::now() - m_startTime;
 	int duration = (int)diff.count();
+	std::string warn = m_player.LandingSpeed() ? "" : " TOO FAST!";
 	WriteTextToBuffer(m_consoleBuffer, "SCORE  " + std::to_string(m_player.score), 1, 0);
 	WriteTextToBuffer(m_consoleBuffer, "TIME   " + std::to_string(duration), 1, 1);
 	WriteTextToBuffer(m_consoleBuffer, "FUEL   " + std::to_string(m_player.fuel), 1, 2);
 	WriteTextToBuffer(m_consoleBuffer, "POSITION     " + std::to_string(m_player.position.x) + ", " + std::to_string(m_player.position.y), 20, 0);
-	WriteTextToBuffer(m_consoleBuffer, "VELOCITY     " + std::to_string(m_player.velocity.x) + ", " + std::to_string(m_player.velocity.y), 20, 1);
+	WriteTextToBuffer(m_consoleBuffer, "VELOCITY     " + std::to_string(m_player.velocity.x) + ", " + std::to_string(m_player.velocity.y) + warn, 20, 1);
 	WriteTextToBuffer(m_consoleBuffer, "ACCELERATION " + std::to_string(m_player.acceleration.x) + ", " + std::to_string(m_player.acceleration.y), 20, 2);
 }
 
