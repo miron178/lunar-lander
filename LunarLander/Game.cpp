@@ -110,10 +110,6 @@ void Game::UpdateMenu(float deltaTime)
 	{
 		m_exit = true;
 	}
-	if (GetAsyncKeyState(KEY_ESC))
-	{
-		m_exit = true;
-	}
 }
 
 //main game update
