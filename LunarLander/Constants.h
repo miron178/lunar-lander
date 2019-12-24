@@ -37,4 +37,7 @@ const float FUEL_CONSUMPTION = 0.5f;
 const float MAX_VELOCITY = 4.5f;
 const float MAX_LANDING_VELOCITY = 0.5f;
 
+const int PLAYER_MIN_X = 0;
+const int PLAYER_MIN_Y = 4;
+
 #endif // !__CONSTANTS_H__

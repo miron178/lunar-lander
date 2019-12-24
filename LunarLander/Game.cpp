@@ -219,8 +219,8 @@ void Game::UpdatePlayer(float deltaTime)
 
 	m_player.position.x += m_player.velocity.x * deltaTime;
 	m_player.position.y += m_player.velocity.y * deltaTime;
-	m_player.position.x = ClampF(m_player.position.x, 0, SCREEN_WIDTH - m_player.WIDTH);
-	m_player.position.y = ClampF(m_player.position.y, 0, SCREEN_HEIGHT - m_player.HEIGHT);
+	m_player.position.x = ClampF(m_player.position.x, PLAYER_MIN_X, SCREEN_WIDTH - m_player.WIDTH);
+	m_player.position.y = ClampF(m_player.position.y, PLAYER_MIN_Y, SCREEN_HEIGHT - m_player.HEIGHT);
 
 	//chars on landing gear
 	char bottomLeftChar = m_background.HIT_MAP[(int)m_player.position.x + 

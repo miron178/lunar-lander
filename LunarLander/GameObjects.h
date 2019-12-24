@@ -28,8 +28,8 @@ struct Player
 	void Reset()
 	{
 		ResetMovement();
-		position.x = 0;
-		position.y = 0;
+		position.x = SCREEN_WIDTH / 2;
+		position.y = PLAYER_MIN_Y;
 		hasLanded = false;
 		hasCrashed = false;
 		fuel = 100;
