@@ -199,17 +199,22 @@ void Game::UpdatePlayer(float deltaTime)
 	m_player.position.y = ClampF(m_player.position.y, 0, SCREEN_HEIGHT - m_player.HEIGHT);
 
 	//chars on landing gear
-	char bottomLeftChar = m_background.BACKGROUND[(int)m_player.position.x + SCREEN_WIDTH *
-		((int)m_player.position.y + (m_player.HEIGHT - 1))];
-	char BottomRightChar = m_background.BACKGROUND
-		[((int)m_player.position.x + (m_player.WIDTH - 1) + SCREEN_WIDTH * ((int)m_player.position.y + (m_player.HEIGHT - 1)))];
+	char bottomLeftChar = m_background.HIT_MAP[(int)m_player.position.x + 
+		SCREEN_WIDTH * ((int)m_player.position.y + (m_player.HEIGHT - 1))];
+	char bottomRightChar = m_background.HIT_MAP
+		[((int)m_player.position.x + (m_player.WIDTH - 1) + 
+			SCREEN_WIDTH * ((int)m_player.position.y + (m_player.HEIGHT - 1)))];
 
 	//land or crash
-	if (bottomLeftChar == '_' && BottomRightChar == '_')
+	if ((bottomLeftChar == bottomRightChar) && 
+		(bottomLeftChar >= '1') && 
+		(bottomLeftChar <= '9'))
 	{
+		int multiplier = bottomLeftChar - '0';
 		m_player.hasLanded = true;
+		m_player.score += (50 + m_player.fuel) * multiplier;
 	}
-	else if (bottomLeftChar != ' ' || BottomRightChar != ' ')
+	else if (bottomLeftChar != ' ' || bottomRightChar != ' ')
 	{
 		m_player.hasCrashed = true;
 	}
@@ -238,9 +243,9 @@ void Game::DrawUI()
 {
 	std::chrono::duration<float> diff = std::chrono::high_resolution_clock::now() - m_startTime;
 	int duration = (int)diff.count();
-	WriteTextToBuffer(m_consoleBuffer, "SCORE", 1, 0);
-	WriteTextToBuffer(m_consoleBuffer, "TIME " + std::to_string(duration), 1, 1);
-	WriteTextToBuffer(m_consoleBuffer, "FULE " + std::to_string(m_player.fuel), 1, 2);
+	WriteTextToBuffer(m_consoleBuffer, "SCORE  " + std::to_string(m_player.score), 1, 0);
+	WriteTextToBuffer(m_consoleBuffer, "TIME   " + std::to_string(duration), 1, 1);
+	WriteTextToBuffer(m_consoleBuffer, "FUEL   " + std::to_string(m_player.fuel), 1, 2);
 	WriteTextToBuffer(m_consoleBuffer, "POSITION     " + std::to_string(m_player.position.x) + ", " + std::to_string(m_player.position.y), 20, 0);
 	WriteTextToBuffer(m_consoleBuffer, "VELOCITY     " + std::to_string(m_player.velocity.x) + ", " + std::to_string(m_player.velocity.y), 20, 1);
 	WriteTextToBuffer(m_consoleBuffer, "ACCELERATION " + std::to_string(m_player.acceleration.x) + ", " + std::to_string(m_player.acceleration.y), 20, 2);

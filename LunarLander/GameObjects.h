@@ -26,6 +26,7 @@ struct Player
 		hasLanded = false;
 		hasCrashed = false;
 		fuel = 100;
+		score = 0;
 	}
 
 	//constant
@@ -47,6 +48,7 @@ struct Player
 	bool hasLanded = false;
 	bool hasCrashed = false;
 	float fuel = 100;
+	int score = 0;
 	Vector position{ 0.0f, 0.0f };
 	Vector velocity{ 0.0f, 0.0f };
 	Vector acceleration{ 0.0f, 0.0f };
@@ -115,6 +117,49 @@ struct Background
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )";
+
+	const char* HIT_MAP =
+		R"(                                                                                                    )"
+		R"(                                                                                                    )"
+		R"(                                                                                                    )"
+		R"(                                                                                                    )"
+		R"(                                                                                                    )"
+		R"(                                                                                                    )"
+		R"(                                                                              ^                     )"
+		R"(                                                                             / \   44               )"
+		R"(                                                                            /    \/  \              )"
+		R"(                                                                           /          |             )"
+		R"(                                                                          /            \            )"
+		R"(                                                                         /              |           )"
+		R"(                                                                        /                |          )"
+		R"(                                                                       /                 |          )"
+		R"(                                                                  1111/                   \         )"
+		R"(                                                                 /                         |        )"
+		R"(                                                                /                          |        )"
+		R"(                                                               /                           |        )"
+		R"(                                          222                 |                             \       )"
+		R"(                                         |   \               /                               |      )"
+		R"(                                        /     \__           |                                |     /)"
+		R"(                                       |         \         /                                 |1111/ )"
+		R"(                              /\      /           \       |                                         )"
+		R"(                             /  \    |             \  222/                                          )"
+		R"(                    1111    /    \44/               \/                                              )"
+		R"(                   /    \ /                         /                                               )"
+		R"(                  /      \                                                                          )"
+		R"(                 /                                                                                  )"
+		R"(                /                                                                                   )"
+		R"(       222     /                                                                                    )"
+		R"(      /   \   /                                                                                     )"
+		R"(     /     \ /                                                                                      )"
+		R"(    |       V                                                                                       )"
+		R"(    |                                                                                               )"
+		R"(   /                                                                                                )"
+		R"(44/                                                                                                 )"
+		R"(                                                                                                    )"
+		R"(                                                                                                    )"
+		R"(                                                                                                    )"
+		R"(                                                                                                    )";
+
 };
 
 //holds chars which make the splash screen 
