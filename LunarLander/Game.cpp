@@ -28,6 +28,8 @@ bool Game::Initialise()
 	{
 		return false;
 	}
+
+	m_startTime = std::chrono::high_resolution_clock::now();
 	return true;
 }
 
@@ -235,8 +237,10 @@ void Game::DrawExplosion(float deltaTime)
 
 void Game::DrawUI()
 {
+	std::chrono::duration<float> diff = std::chrono::high_resolution_clock::now() - m_startTime;
+	int duration = (int)diff.count();
 	WriteTextToBuffer(m_consoleBuffer, "SCORE", 1, 0);
-	WriteTextToBuffer(m_consoleBuffer, "TIME", 1, 1);
+	WriteTextToBuffer(m_consoleBuffer, "TIME " + std::to_string(duration), 1, 1);
 	WriteTextToBuffer(m_consoleBuffer, "FULE " + std::to_string(m_player.fuel), 1, 2);
 	WriteTextToBuffer(m_consoleBuffer, "POSITION     " + std::to_string(m_player.position.x) + ", " + std::to_string(m_player.position.y), 20, 0);
 	WriteTextToBuffer(m_consoleBuffer, "VELOCITY     " + std::to_string(m_player.velocity.x) + ", " + std::to_string(m_player.velocity.y), 20, 1);

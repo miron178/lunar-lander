@@ -31,7 +31,6 @@ int main()
 	Time currentFrameTime = HiResClock::now();
 	float deltaTime = 0.0f;
 
-
 	//main game loop
 	while (!gameInstance.Exit())
 	{

@@ -10,6 +10,7 @@
 
 #include "GameObjects.h"
 
+#include <chrono>
 #include <windows.h>
 
 //declares all functions used in Game.cpp - along with: enums, paramaters and variables
@@ -69,5 +70,6 @@ private:
 	Background m_background;
 	Player m_player;
 	Explosion m_explosion;
+	std::chrono::steady_clock::time_point m_startTime;
 };
 #endif //!__GAME_H__
