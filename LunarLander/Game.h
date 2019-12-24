@@ -23,6 +23,15 @@ public:
 	bool Exit() const { return m_exit; }
 
 private:
+	void UpdateSplash(float deltaTime);
+	void UpdateMenu(float deltaTime);
+	void UpdatePlay(float deltaTime);
+	void UpdateScoreboard(float deltaTime);
+	void HandlePlayerControls();
+	void UpdatePlayer(float deltaTime);
+	void DrawExplosion(float deltaTime);
+	void DrawUI();
+
 	bool m_exit = false;
 	//game enums
 	enum GAME_STATE
