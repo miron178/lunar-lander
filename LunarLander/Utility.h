@@ -14,24 +14,15 @@
 #include<windows.h>
 #include<string>
 
-static int Clamp(int intToClamp, int lowerLimit, int upperLimit)
-{
-	{
-		if (intToClamp < lowerLimit)
-			return lowerLimit;
-		else if (intToClamp > upperLimit)
-			return upperLimit;
-		else
-			return intToClamp;
-	}
-}
-
+//stops values exceeding or falling short of a set float
 static float ClampF(float floatToClamp, float lowerLimit, float upperLimit)
 {
 	return floatToClamp <= lowerLimit ? lowerLimit : floatToClamp >= upperLimit ? upperLimit : floatToClamp;
 }
 
-static void WriteImageToBuffer(CHAR_INFO* consoleBuffer, const char charsToPrint[], const int coloursToPrint[], int imageHeight, int imageWidth, int imageXPos, int imageYPos)
+//writes a image to buffer through the use of characters
+static void WriteImageToBuffer(CHAR_INFO* consoleBuffer, const char charsToPrint[], const int coloursToPrint[], 
+	int imageHeight, int imageWidth, int imageXPos, int imageYPos)
 {
 	for (int y = 0; y < imageHeight; y++)
 	{
@@ -44,12 +35,14 @@ static void WriteImageToBuffer(CHAR_INFO* consoleBuffer, const char charsToPrint
 			}
 			else
 			{
-				consoleBuffer[(imageXPos + x) + SCREEN_WIDTH * (imageYPos + y)].Attributes = 7;
+				//magic num check ___________________________________________________________________________________________________________
+				consoleBuffer[(imageXPos + x) + SCREEN_WIDTH * (imageYPos + y)].Attributes = 7; 
 			}
 		}
 	}
 }
 
+//clears screen
 static void ClearScreen(CHAR_INFO* consoleBuffer)
 {
 	for (int i = 0; i < (SCREEN_WIDTH * SCREEN_HEIGHT); i++)
@@ -59,6 +52,7 @@ static void ClearScreen(CHAR_INFO* consoleBuffer)
 	}
 }
 
+//writs text to buffer via characters
 static void WriteTextToBuffer(CHAR_INFO* consoleBuffer, std::string stringToPrint, int textXPos, int textYPos)
 {
 	for (unsigned int x = 0; x < stringToPrint.length(); x++)
