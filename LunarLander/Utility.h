@@ -21,7 +21,7 @@ static float ClampF(float floatToClamp, float lowerLimit, float upperLimit)
 }
 
 //writes a image to buffer through the use of characters
-static void WriteImageToBuffer(CHAR_INFO* consoleBuffer, const char charsToPrint[], const int coloursToPrint[], 
+static void WriteImageToBuffer(CHAR_INFO * consoleBuffer, const char charsToPrint[], const int coloursToPrint[], 
 	int imageHeight, int imageWidth, int imageXPos, int imageYPos)
 {
 	for (int y = 0; y < imageHeight; y++)
