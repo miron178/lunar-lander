@@ -71,5 +71,6 @@ private:
 	Player m_player;
 	Explosion m_explosion;
 	std::chrono::steady_clock::time_point m_startTime;
+	int m_bestScore = 0;
 };
 #endif //!__GAME_H__

@@ -222,6 +222,12 @@ void Game::UpdatePlayer(float deltaTime)
 		m_player.ResetMovement();
 		m_player.hasLanded = true;
 		m_player.score += (50 + m_player.fuel) * multiplier;
+
+		//update best score
+		if (m_bestScore < m_player.score)
+		{
+			m_bestScore = m_player.score;
+		}
 	}
 	else if (bottomLeftChar != ' ' || bottomRightChar != ' ')
 	{
@@ -264,7 +270,14 @@ void Game::DrawUI()
 //
 void Game::UpdateScoreboard(float deltaTime)
 {
-	
+	if (GetAsyncKeyState(KEY_ESC))
+	{
+		m_currentGameState = GAME_STATE_MENU;
+	}
+	ClearScreen(m_consoleBuffer);
+	WriteTextToBuffer(m_consoleBuffer, "---- SCOREBOARD ----", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 2);
+	WriteTextToBuffer(m_consoleBuffer, "BEST SCORE " + std::to_string(m_bestScore), SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 0);
+	WriteTextToBuffer(m_consoleBuffer, "YOUR SCORE " + std::to_string(m_player.score), SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 1);
 }
 
 //display to console
