@@ -55,15 +55,17 @@ struct Explosion
 {
 	static const int WIDTH = 3;
 	static const int HEIGHT = 3;
-	const char *EXPLOSION = 
+	static const int FRAMES = 2;
+	const char *EXPLOSION[FRAMES] =
+	{
 		R"(\|/)"
 		R"(- -)"
-		R"(/|\)";
+		R"(/|\)",
 
-	const char *EXPLOSION2 = 
 		R"(   )"
 		R"( * )"
-		R"(   )";
+		R"(   )"
+	};
 };
 
 struct Background

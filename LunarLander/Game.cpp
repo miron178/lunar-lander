@@ -207,20 +207,21 @@ void Game::UpdatePlayer(float deltaTime)
 
 void Game::DrawExplosion(float deltaTime)
 {
+	static const float ANIMATION_DELAY = 0.5f;
+
+	int frame = 0;
 	static float explosionTimer = 0.0f;
 	explosionTimer += deltaTime;
 
-	if (explosionTimer >= .75f)
+	// move to next frame
+	if (explosionTimer >= ANIMATION_DELAY)
 	{
-		WriteImageToBuffer(consoleBuffer, explosion.EXPLOSION, nullptr,
-			explosion.HEIGHT, explosion.WIDTH, (int)player.position.x, (int)player.position.y);
-		explosionTimer = 0.0f;
+		explosionTimer -= ANIMATION_DELAY;
+		frame = (frame + 1) % explosion.FRAMES;
 	}
-	else
-	{
-		WriteImageToBuffer(consoleBuffer, explosion.EXPLOSION2, nullptr,
-			explosion.HEIGHT, explosion.WIDTH, (int)player.position.x, (int)player.position.y);
-	}
+
+	WriteImageToBuffer(consoleBuffer, explosion.EXPLOSION[frame], nullptr,
+		explosion.HEIGHT, explosion.WIDTH, (int)player.position.x, (int)player.position.y);
 }
 
 void Game::DrawUI()
