@@ -3,19 +3,28 @@
 
 #include"Constants.h"
 
+struct Vector
+{
+	float x;
+	float y;
+};
+
 struct Player
 {
 	//function
 	void Reset()
 	{
-		xPos = 0;
-		yPos = 0;
-		isAccelerating = false;
-		landerAcceleration = 0.0f;
+		acceleration.x = 0;
+		acceleration.y = 0;
+		velocity.x = 0;
+		velocity.y = 0;
+		position.x = 0;
+		position.y = 0;
 		hasLanded = false;
 		hasCrashed = false;
 		fuel = 100;
 	}
+
 	//constant
 	static const int WIDTH = 2;
 	static const int HEIGHT = 3;
@@ -34,13 +43,13 @@ struct Player
 	};
 
 	//variables
-	int xPos = 0;
-	int yPos = 0;
-	bool isAccelerating = false;
-	float landerAcceleration = 0.0f;
 	bool hasLanded = false;
 	bool hasCrashed = false;
 	float fuel = 100;
+
+	Vector position{ 0.0f, 0.0f };
+	Vector velocity{ 0.0f, 0.0f };
+	Vector acceleration{ 0.0f, 0.0f };
 };
 
 struct Explosion

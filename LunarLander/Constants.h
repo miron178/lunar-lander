@@ -25,4 +25,6 @@ const float ACCELERATION_RATE = 0.5f;
 const float DECELERATION_RATE = 0.2f;
 const float FUEL_CONSUMPTION = 0.5f;
 
+const float MAX_VELOCITY = 4.5f;
+
 #endif // !Constants_h
