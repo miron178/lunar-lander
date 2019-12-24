@@ -28,14 +28,12 @@ struct Player
 	//constant
 	static const int WIDTH = 2;
 	static const int HEIGHT = 3;
-	const char PLAYER[WIDTH * HEIGHT + 1] =
-	{
+	const char* PLAYER =
 		R"(__)"
 		R"({})"
-		R"(/\)"
-	};
+		R"(/\)";
 
-	const int COLOUR[WIDTH * HEIGHT] =
+	const int COLOUR[WIDTH * HEIGHT]
 	{
 		0xf,0xf,
 		0xf,0xf,
@@ -55,25 +53,21 @@ struct Explosion
 {
 	static const int WIDTH = 3;
 	static const int HEIGHT = 3;
-	const char EXPLOSION[WIDTH * HEIGHT + 1]
-	{
+	const char *EXPLOSION = 
 		R"(\|/)"
 		R"(- -)"
-		R"(/|\)"
-	};
-	const char EXPLOSION2[WIDTH * HEIGHT + 1]
-	{
+		R"(/|\)";
+
+	const char *EXPLOSION2 = 
 		R"(   )"
 		R"( * )"
-		R"(   )"
-	};
+		R"(   )";
 };
 
 struct Background
 {
 	//constant
-	const char BACKGROUND[SCREEN_WIDTH * SCREEN_HEIGHT + 1]
-	{
+	const char *BACKGROUND =
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
@@ -113,8 +107,7 @@ struct Background
 		R"(X4                                                                                                  )"
 		R"(                                                                                                    )"
 		R"(                                                                                                    )"
-		R"(                                                                                                    )"
-	};
+		R"(                                                                                                    )";
 };
 
 struct Splash
@@ -122,9 +115,7 @@ struct Splash
 	//constant
 	static const int HEIGHT= 11;
 	static const int WIDTH= 30;
-	const char SCREEN[WIDTH* HEIGHT+ 1] // +1 for null
-	{
-
+	const char* SCREEN =
 		R"(                      _______ )"
 		R"(                     /        )"
 		R"(                    /    /    )"
@@ -135,8 +126,7 @@ struct Splash
 		R"(   \    ----          ###| \ ~)"
 		R"(    \ ____________________    )"
 		R"(                   \     \    )"
-		R"(                    \________ )"
-	};
+		R"(                    \________ )";
 
 	//Variable
 	float duration = 0.0f;

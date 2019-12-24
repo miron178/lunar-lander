@@ -13,11 +13,9 @@ typedef std::chrono::steady_clock::time_point Time;
 typedef std::chrono::high_resolution_clock HiResClock;
 typedef std::chrono::duration<float> TimeDiff;
 
-//outside of the main function because of the size
-static Game gameInstance;
-
 int main()
 {
+	Game gameInstance;
 	//initialise
 	if (!gameInstance.Initialise())
 	{
