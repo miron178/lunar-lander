@@ -5,8 +5,8 @@
 // Brief:         Holds all game objects
 ////////////////////////////////////////////////////////////
 
-#ifndef GAME_OBJECTS_H
-#define GAME_OBJECTS_H
+#ifndef __GAME_OBJECTS_H__
+#define __GAME_OBJECTS_H__
 #include "Constants.h"
 #include "Vector.h"
 
@@ -133,4 +133,4 @@ struct Splash
 	float duration = 0.0f;
 };
 
-#endif // !GAME_OBJECTS
+#endif // !__GAME_OBJECTS__

@@ -5,8 +5,8 @@
 // Brief:         Various utility functions.
 ////////////////////////////////////////////////////////////
 
-#ifndef UTILITY_H
-#define UTILITY_H
+#ifndef __UTILITY_H__
+#define __UTILITY_H__
 
 #include<Windows.h>
 #include<string>
@@ -67,4 +67,4 @@ static void WriteTextToBuffer(CHAR_INFO* consoleBuffer, std::string stringToPrin
 	}
 }
 
-#endif // !UTILITY
+#endif // !__UTILITY__

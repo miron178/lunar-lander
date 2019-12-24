@@ -5,8 +5,8 @@
 // Brief:         Declaration of Game class.
 ////////////////////////////////////////////////////////////
 
-#ifndef GAME_H
-#define GAME_H
+#ifndef __GAME_H__
+#define __GAME_H__
 #include <windows.h>
 #include "GameObjects.h"
 
@@ -57,4 +57,4 @@ private:
 	Player player;
 	Explosion explosion;
 };
-#endif //GAME_H
+#endif //!__GAME_H__

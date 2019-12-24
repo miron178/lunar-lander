@@ -5,8 +5,8 @@
 // Brief:         Implementation 2D vector
 ////////////////////////////////////////////////////////////
 
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef __VECTOR_H__
+#define __VECTOR_H__
 
 struct Vector
 {
@@ -14,4 +14,4 @@ struct Vector
 	float y;
 };
 
-#endif //!VECTOR_H
+#endif //!__VECTOR_H__

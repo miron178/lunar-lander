@@ -5,8 +5,8 @@
 // Brief:         Declaration of game constants.
 ////////////////////////////////////////////////////////////
 
-#ifndef Constants_h
-#define Constants_h
+#ifndef __CONSTANTS_H__
+#define __CONSTANTS_H__
 #include <Windows.h>
 
 //DEFINS
@@ -34,4 +34,4 @@ const float FUEL_CONSUMPTION = 0.5f;
 
 const float MAX_VELOCITY = 4.5f;
 
-#endif // !Constants_h
+#endif // !__CONSTANTS_H__
