@@ -1,6 +1,12 @@
-﻿#ifndef GAME_OBJECTS_H
-#define GAME_OBJECTS_H
+﻿////////////////////////////////////////////////////////////
+// File:          GameObjects.h
+// Author:        Miron Bury
+// Date Created:  01/12/2019
+// Brief:         Holds all game objects
+////////////////////////////////////////////////////////////
 
+#ifndef GAME_OBJECTS_H
+#define GAME_OBJECTS_H
 #include"Constants.h"
 
 struct Vector

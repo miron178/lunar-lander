@@ -1,3 +1,10 @@
+////////////////////////////////////////////////////////////
+// File:          Game.h
+// Author:        Miron Bury
+// Date Created:  01/12/2019
+// Brief:         Declaration of Game class.
+////////////////////////////////////////////////////////////
+
 #ifndef GAME_H
 #define GAME_H
 #include <windows.h>
@@ -44,7 +51,7 @@ private:
 	HANDLE rHnd = GetStdHandle(STD_INPUT_HANDLE);
 
 	//game variables
-	GAME_STATE currentGameState = SPLASH;
+	GAME_STATE currentGameState = GAME_STATE::SPLASH;
 	Splash splash;
 	Background background;
 	Player player;

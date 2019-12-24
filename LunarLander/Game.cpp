@@ -1,4 +1,10 @@
-//class header
+////////////////////////////////////////////////////////////
+// File:          Game.cpp 
+// Author:        Miron Bury
+// Date Created:  01/12/2019
+// Brief:         Implementation of Game class.
+////////////////////////////////////////////////////////////
+
 #include "Game.h"
 #include "Utility.h"
 #include "Constants.h"

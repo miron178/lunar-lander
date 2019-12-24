@@ -1,3 +1,10 @@
+////////////////////////////////////////////////////////////
+// File:          Constants.h 
+// Author:        Miron Bury
+// Date Created:  01/12/2019
+// Brief:         Declaration of game constants.
+////////////////////////////////////////////////////////////
+
 #ifndef Constants_h
 #define Constants_h
 #include <Windows.h>
