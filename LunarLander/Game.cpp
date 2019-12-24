@@ -27,12 +27,11 @@ void Game::Update(float deltaTime)
 		if (splash.duration < 3.0f)
 		{
 			//draw splash
-			//WriteImageToBuffer(consoleBuffer, splashScreen, nullptr, 
-			//	splashHeight, splashWidth, 
-			//	(WIDTH - splashWidth) / 2 - splashDuration*10, (HEIGHT - splashHeight) / 2);
+			static const int SPEED = 10;
 			WriteImageToBuffer2(consoleBuffer, splash.SCREEN, nullptr,
 				splash.HEIGHT, splash.WIDTH,
-				(SCREEN_WIDTH - splash.WIDTH) / 2 - splash.duration * 10, (SCREEN_HEIGHT - splash.HEIGHT) / 2);
+				(SCREEN_WIDTH - splash.WIDTH) / 2 - (int)(splash.duration * SPEED), 
+				(SCREEN_HEIGHT - splash.HEIGHT) / 2);
 		}
 		else
 		{
