@@ -7,13 +7,8 @@
 
 #ifndef GAME_OBJECTS_H
 #define GAME_OBJECTS_H
-#include"Constants.h"
-
-struct Vector
-{
-	float x;
-	float y;
-};
+#include "Constants.h"
+#include "Vector.h"
 
 struct Player
 {

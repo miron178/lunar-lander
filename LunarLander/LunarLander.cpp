@@ -1,4 +1,11 @@
-﻿//INCLUDES
+﻿////////////////////////////////////////////////////////////
+// File:          LunarLander.cpp
+// Author:        Miron Bury
+// Date Created:  01/12/2019
+// Brief:         Implementation of main function.
+////////////////////////////////////////////////////////////
+
+//INCLUDES
 #include <windows.h>
 #include <chrono>
 #include "GameObjects.h"

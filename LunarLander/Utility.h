@@ -1,9 +1,17 @@
+////////////////////////////////////////////////////////////
+// File:          Utility.h
+// Author:        Miron Bury
+// Date Created:  01/12/2019
+// Brief:         Various utility functions.
+////////////////////////////////////////////////////////////
+
 #ifndef UTILITY_H
 #define UTILITY_H
 
 #include<Windows.h>
 #include<string>
 #include "Constants.h"
+#include "Vector.h"
 
 static int Clamp(int intToClamp, int lowerLimit, int upperLimit)
 {
