@@ -62,6 +62,11 @@ void Game::Update(float deltaTime)
 //updats splash - dosen't clear frame on purpose
 void Game::UpdateSplash(float deltaTime)
 {
+	if (GetAsyncKeyState(KEY_ESC))
+	{
+		m_currentGameState = GAME_STATE_MENU;
+	}
+
 	m_splash.duration += deltaTime;
 	if (m_splash.duration < 3.0f)
 	{
@@ -114,9 +119,9 @@ void Game::UpdateMenu(float deltaTime)
 //main game update
 void Game::UpdatePlay(float deltaTime)
 {
-	if (GetAsyncKeyState(KEY_ESC)) //exit game
+	if (GetAsyncKeyState(KEY_ESC))
 	{
-		m_exit = true;
+		m_currentGameState = GAME_STATE_MENU;
 	}
 
 	if (GetAsyncKeyState(KEY_ENTER) && (m_player.hasCrashed || m_player.hasLanded))
