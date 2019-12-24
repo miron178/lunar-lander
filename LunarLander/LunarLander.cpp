@@ -17,6 +17,7 @@ typedef std::chrono::steady_clock::time_point Time;
 typedef std::chrono::high_resolution_clock HiResClock;
 typedef std::chrono::duration<float> TimeDiff;
 
+//main entry point
 int main()
 {
 	Game gameInstance;

@@ -11,9 +11,10 @@
 #include "Constants.h"
 #include "Vector.h"
 
+//holds all data needed to make the player
 struct Player
 {
-	//function
+	//resets the position, fuel, and state (crashed  / landed)
 	void Reset()
 	{
 		acceleration.x = 0;
@@ -51,6 +52,7 @@ struct Player
 	Vector acceleration{ 0.0f, 0.0f };
 };
 
+// holds the models used for explosion
 struct Explosion
 {
 	static const int WIDTH = 3;
@@ -58,16 +60,17 @@ struct Explosion
 	static const int FRAMES = 2;
 	const char *EXPLOSION[FRAMES] =
 	{
+		R"(   )"
+		R"( * )"
+		R"(   )",
+
 		R"(\|/)"
 		R"(- -)"
 		R"(/|\)",
-
-		R"(   )"
-		R"( * )"
-		R"(   )"
 	};
 };
 
+//holds chars which make the background
 struct Background
 {
 	//constant
@@ -114,6 +117,7 @@ struct Background
 		R"(                                                                                                    )";
 };
 
+//holds chars which make the splash screen 
 struct Splash
 {
 	//constant

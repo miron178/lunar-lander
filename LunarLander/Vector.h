@@ -8,6 +8,7 @@
 #ifndef __VECTOR_H__
 #define __VECTOR_H__
 
+//holds data for a 2D vector
 struct Vector
 {
 	float x;

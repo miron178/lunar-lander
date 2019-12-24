@@ -12,6 +12,7 @@
 
 #include <windows.h>
 
+//declares all functions  used in Game.cpp - along with: enums, paramaters and variables
 class Game
 {
 public:

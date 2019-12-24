@@ -10,6 +10,8 @@
 
 #include <windows.h>
 
+// holds all constants
+
 //DEFINS
 #define SCREEN_WIDTH 100 //lowered to fix border
 #define SCREEN_HEIGHT 40

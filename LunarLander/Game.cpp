@@ -10,11 +10,13 @@
 #include "Utility.h"
 #include "Constants.h"
 
+//
 Game::Game()
 {
 	memset(&m_consoleBuffer, 0, sizeof(m_consoleBuffer));
 }
 
+//sets window and consoleBuffer 
 bool Game::Initialise()
 {
 	SetConsoleTitle(L"Title of my Console Window");
@@ -29,6 +31,7 @@ bool Game::Initialise()
 	return true;
 }
 
+//state machine usd to change game state
 void Game::Update(float deltaTime)
 {
 	switch (m_currentGameState)
@@ -56,6 +59,7 @@ void Game::Update(float deltaTime)
 	}
 }
 
+//updats splash - dosen't clear frame on purpose
 void Game::UpdateSplash(float deltaTime)
 {
 	m_splash.duration += deltaTime;
@@ -74,6 +78,8 @@ void Game::UpdateSplash(float deltaTime)
 		m_currentGameState = GAME_STATE_MENU;
 	}
 }
+
+//Updates UI & switches game state
 void Game::UpdateMenu(float deltaTime)
 {
 	ClearScreen(m_consoleBuffer);
@@ -102,22 +108,24 @@ void Game::UpdateMenu(float deltaTime)
 		m_exit = true;
 	}
 }
+
+//main game update
 void Game::UpdatePlay(float deltaTime)
 {
-	if (GetAsyncKeyState(KEY_ESC))
+	if (GetAsyncKeyState(KEY_ESC)) //exit game
 	{
 		m_exit = true;
 	}
 
 	if (GetAsyncKeyState(KEY_ENTER) && (m_player.hasCrashed || m_player.hasLanded))
 	{
-		m_player.Reset();
-		m_currentGameState = GAME_STATE_MENU;
+		m_player.Reset(); //resets player pos, fuel, etc.
+		m_currentGameState = GAME_STATE_MENU; //sets state to menu
 	}
 	if (!m_player.hasLanded && !m_player.hasCrashed)
 	{
-		HandlePlayerControls();
-		UpdatePlayer(deltaTime);
+		HandlePlayerControls(); //player controls
+		UpdatePlayer(deltaTime); //update player
 	}
 
 	//clearscreen
@@ -176,6 +184,7 @@ void Game::HandlePlayerControls()
 		m_player.acceleration.x = 0.0f;
 	}
 }
+
 void Game::UpdatePlayer(float deltaTime)
 {
 	m_player.velocity.x += m_player.acceleration.x * deltaTime;
@@ -234,11 +243,14 @@ void Game::DrawUI()
 	WriteTextToBuffer(m_consoleBuffer, "ACCELERATION " + std::to_string(m_player.acceleration.x) + ", " + std::to_string(m_player.acceleration.y), 20, 2);
 }
 
+
+//
 void Game::UpdateScoreboard(float deltaTime)
 {
 	
 }
 
+//display to console
 void Game::Draw()
 {
 	WriteConsoleOutputA(m_wHnd, m_consoleBuffer, m_characterBufferSize, m_characterPoition, &m_consoleWriteArea);

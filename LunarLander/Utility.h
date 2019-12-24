@@ -35,8 +35,8 @@ static void WriteImageToBuffer(CHAR_INFO* consoleBuffer, const char charsToPrint
 			}
 			else
 			{
-				//magic num check ___________________________________________________________________________________________________________
-				consoleBuffer[(imageXPos + x) + SCREEN_WIDTH * (imageYPos + y)].Attributes = 7; 
+				static const int WHITE_ON_BLACK = 7;
+				consoleBuffer[(imageXPos + x) + SCREEN_WIDTH * (imageYPos + y)].Attributes = WHITE_ON_BLACK;
 			}
 		}
 	}
