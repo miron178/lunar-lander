@@ -7,7 +7,8 @@
 
 #ifndef __CONSTANTS_H__
 #define __CONSTANTS_H__
-#include <Windows.h>
+
+#include <windows.h>
 
 //DEFINS
 #define SCREEN_WIDTH 100 //lowered to fix border

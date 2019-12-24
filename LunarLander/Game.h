@@ -7,8 +7,10 @@
 
 #ifndef __GAME_H__
 #define __GAME_H__
-#include <windows.h>
+
 #include "GameObjects.h"
+
+#include <windows.h>
 
 class Game
 {

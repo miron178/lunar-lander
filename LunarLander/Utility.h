@@ -8,10 +8,11 @@
 #ifndef __UTILITY_H__
 #define __UTILITY_H__
 
-#include<Windows.h>
-#include<string>
 #include "Constants.h"
 #include "Vector.h"
+
+#include<windows.h>
+#include<string>
 
 static int Clamp(int intToClamp, int lowerLimit, int upperLimit)
 {

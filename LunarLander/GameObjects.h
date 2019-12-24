@@ -7,6 +7,7 @@
 
 #ifndef __GAME_OBJECTS_H__
 #define __GAME_OBJECTS_H__
+
 #include "Constants.h"
 #include "Vector.h"
 

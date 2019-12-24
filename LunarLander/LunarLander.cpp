@@ -5,14 +5,11 @@
 // Brief:         Implementation of main function.
 ////////////////////////////////////////////////////////////
 
-//INCLUDES
-#include <windows.h>
-#include <chrono>
 #include "GameObjects.h"
 #include "Game.h"
 
-//INCLUDES for tests
-#include <cstring>
+#include <windows.h>
+#include <chrono>
 #include <iostream>
 
 //Typedefs
