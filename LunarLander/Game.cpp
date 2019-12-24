@@ -39,7 +39,7 @@ void Game::Update(float deltaTime)
 		{
 			//draw splash
 			static const int SPEED = 10;
-			WriteImageToBuffer2(consoleBuffer, splash.SCREEN, nullptr,
+			WriteImageToBuffer(consoleBuffer, splash.SCREEN, nullptr,
 				splash.HEIGHT, splash.WIDTH,
 				(SCREEN_WIDTH - splash.WIDTH) / 2 - (int)(splash.duration * SPEED), 
 				(SCREEN_HEIGHT - splash.HEIGHT) / 2);
@@ -169,7 +169,7 @@ void Game::Update(float deltaTime)
 		ClearScreen(consoleBuffer);
 
 		//draw background
-		WriteImageToBuffer2(consoleBuffer, background.BACKGROUND, nullptr, SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0);
+		WriteImageToBuffer(consoleBuffer, background.BACKGROUND, nullptr, SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0);
 
 		//crash draw
 		if (player.hasCrashed)
@@ -179,13 +179,13 @@ void Game::Update(float deltaTime)
 
 			if (explosionTimer >= .75f)
 			{
-				WriteImageToBuffer2(consoleBuffer, explosion.EXPLOSION, nullptr,
+				WriteImageToBuffer(consoleBuffer, explosion.EXPLOSION, nullptr,
 					explosion.HEIGHT, explosion.WIDTH, (int)player.position.x, (int)player.position.y);
 				explosionTimer = 0.0f;
 			}
 			else
 			{
-				WriteImageToBuffer2(consoleBuffer, explosion.EXPLOSION2, nullptr,
+				WriteImageToBuffer(consoleBuffer, explosion.EXPLOSION2, nullptr,
 					explosion.HEIGHT, explosion.WIDTH, (int)player.position.x, (int)player.position.y);
 			}
 			WriteTextToBuffer(consoleBuffer, "CRASHED!", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
@@ -199,7 +199,7 @@ void Game::Update(float deltaTime)
 		else
 		{
 			//draw player
-			WriteImageToBuffer2(consoleBuffer, player.PLAYER, player.COLOUR, player.HEIGHT, player.WIDTH, (int)player.position.x, (int)player.position.y);
+			WriteImageToBuffer(consoleBuffer, player.PLAYER, player.COLOUR, player.HEIGHT, player.WIDTH, (int)player.position.x, (int)player.position.y);
 		}
 
 		//draw UI

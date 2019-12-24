@@ -30,26 +30,7 @@ static float ClampF(float floatToClamp, float lowerLimit, float upperLimit)
 	return floatToClamp <= lowerLimit ? lowerLimit : floatToClamp >= upperLimit ? upperLimit : floatToClamp;
 }
 
-static void WriteImageToBuffer(CHAR_INFO* consoleBuffer, const int charsToPrint[], const int coloursToPrint[], int imageHeight, int imageWidth, int imageXPos, int imageYPos)
-{
-	for (int y = 0; y < imageHeight; y++)
-	{
-		for (int x = 0; x < imageWidth; x++)
-		{
-			consoleBuffer[(imageXPos + x) + SCREEN_WIDTH * (imageYPos + y)].Char.AsciiChar = charsToPrint[x + imageWidth * y];
-			if (coloursToPrint)
-			{
-				consoleBuffer[(imageXPos + x) + SCREEN_WIDTH * (imageYPos + y)].Attributes = coloursToPrint[x + imageWidth * y];
-			}
-			else
-			{
-				consoleBuffer[(imageXPos + x) + SCREEN_WIDTH * (imageYPos + y)].Attributes = 7;
-			}
-		}
-	}
-}
-
-static void WriteImageToBuffer2(CHAR_INFO* consoleBuffer, const char charsToPrint[], const int coloursToPrint[], int imageHeight, int imageWidth, int imageXPos, int imageYPos)
+static void WriteImageToBuffer(CHAR_INFO* consoleBuffer, const char charsToPrint[], const int coloursToPrint[], int imageHeight, int imageWidth, int imageXPos, int imageYPos)
 {
 	for (int y = 0; y < imageHeight; y++)
 	{
