@@ -176,10 +176,12 @@ void Game::HandlePlayerControls()
 	if (GetAsyncKeyState(KEY_A))
 	{
 		m_player.acceleration.x = -ACCELERATION_RATE;
+		m_player.fuel -= FUEL_CONSUMPTION;
 	}
 	else if (GetAsyncKeyState(KEY_D))
 	{
 		m_player.acceleration.x = ACCELERATION_RATE;
+		m_player.fuel -= FUEL_CONSUMPTION;
 	}
 	else
 	{
