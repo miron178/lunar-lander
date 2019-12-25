@@ -238,7 +238,7 @@ void Game::UpdatePlayer(float deltaTime)
 		int multiplier = bottomLeftChar - '0';
 		m_player.ResetMovement();
 		m_player.hasLanded = true;
-		m_player.score += (50 + m_player.fuel) * multiplier;
+		m_player.score += (50 + (int)m_player.fuel) * multiplier;
 
 		//update best score
 		if (m_bestScore < m_player.score)
