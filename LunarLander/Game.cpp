@@ -36,22 +36,22 @@ void Game::Update(float deltaTime)
 {
 	switch (m_currentGameState)
 	{
-	case GAME_STATE_SPLASH:
+	case GAME_STATE::SPLASH:
 	{
 		UpdateSplash(deltaTime);
 		break;
 	}
-	case GAME_STATE_MENU:
+	case GAME_STATE::MENU:
 	{
 		UpdateMenu(deltaTime);
 		break;
 	}
-	case GAME_STATE_PLAY:
+	case GAME_STATE::PLAY:
 	{
 		UpdatePlay(deltaTime);
 		break;
 	}
-	case GAME_STATE_SCOREBOARD:
+	case GAME_STATE::SCOREBOARD:
 	{
 		UpdateScoreboard(deltaTime);
 		break;
@@ -64,7 +64,7 @@ void Game::UpdateSplash(float deltaTime)
 {
 	if (GetAsyncKeyState(KEY_ESC))
 	{
-		m_currentGameState = GAME_STATE_MENU;
+		m_currentGameState = GAME_STATE::MENU;
 	}
 
 	m_splash.duration += deltaTime;
@@ -80,7 +80,7 @@ void Game::UpdateSplash(float deltaTime)
 	else
 	{
 		m_splash.duration = 0.0f;
-		m_currentGameState = GAME_STATE_MENU;
+		m_currentGameState = GAME_STATE::MENU;
 	}
 }
 
@@ -98,11 +98,11 @@ void Game::UpdateMenu(float deltaTime)
 	{
 		m_player.Reset(); //resets player pos, fuel, etc.
 		m_startTime = std::chrono::high_resolution_clock::now();
-		m_currentGameState = GAME_STATE_PLAY;
+		m_currentGameState = GAME_STATE::PLAY;
 	}
 	if (GetAsyncKeyState(KEY_2))
 	{
-		m_currentGameState = GAME_STATE_SCOREBOARD;
+		m_currentGameState = GAME_STATE::SCOREBOARD;
 	}
 
 	//stop game
@@ -117,12 +117,12 @@ void Game::UpdatePlay(float deltaTime)
 {
 	if (GetAsyncKeyState(KEY_ESC))
 	{
-		m_currentGameState = GAME_STATE_MENU;
+		m_currentGameState = GAME_STATE::MENU;
 	}
 
 	if (GetAsyncKeyState(KEY_ENTER) && (m_player.hasCrashed || m_player.hasLanded))
 	{
-		m_currentGameState = GAME_STATE_MENU; //sets state to menu
+		m_currentGameState = GAME_STATE::MENU; //sets state to menu
 	}
 	if (!m_player.hasLanded && !m_player.hasCrashed)
 	{
@@ -290,7 +290,7 @@ void Game::UpdateScoreboard(float deltaTime)
 {
 	if (GetAsyncKeyState(KEY_ESC))
 	{
-		m_currentGameState = GAME_STATE_MENU;
+		m_currentGameState = GAME_STATE::MENU;
 	}
 	ClearScreen(m_consoleBuffer);
 	WriteTextToBuffer(m_consoleBuffer, "---- SCOREBOARD ----", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 2);

@@ -37,12 +37,12 @@ private:
 private:
 	bool m_exit = false;
 	//game enums
-	enum GAME_STATE
+	enum class GAME_STATE
 	{
-		GAME_STATE_SPLASH,
-		GAME_STATE_MENU,
-		GAME_STATE_PLAY,
-		GAME_STATE_SCOREBOARD,
+		SPLASH,
+		MENU,
+		PLAY,
+		SCOREBOARD,
 	};
 
 	//CONSOLE PARAMETERS
@@ -65,7 +65,7 @@ private:
 	HANDLE m_rHnd = GetStdHandle(STD_INPUT_HANDLE);
 
 	//game variables
-	GAME_STATE m_currentGameState = GAME_STATE::GAME_STATE_SPLASH;
+	GAME_STATE m_currentGameState = GAME_STATE::SPLASH;
 	Splash m_splash;
 	Background m_background;
 	Player m_player;
